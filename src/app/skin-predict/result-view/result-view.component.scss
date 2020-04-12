@@ -1,0 +1,11 @@
+.container {
+  width: 60%;
+  margin: 5% auto;
+  .card {
+    min-height: 250px;
+    margin: auto auto;
+    .title {
+      margin: auto auto;
+    }
+  }
+}

@@ -1,0 +1,25 @@
+<mat-toolbar color="primary">
+  <mat-toolbar-row>
+    <span>Skin Detector</span>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<mat-sidenav-container class="container">
+  <mat-sidenav #sidenav mode="side">
+    <nav>
+      <li>Home</li>
+      <li>Encyklopedia</li>
+    </nav>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <button
+      class="menu-button"
+      color="primary"
+      mat-raised-button
+      (click)="sidenav.toggle()"
+    >
+      Menu
+    </button>
+    <router-outlet></router-outlet>
+  </mat-sidenav-content>
+</mat-sidenav-container>

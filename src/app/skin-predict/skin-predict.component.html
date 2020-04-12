@@ -1,0 +1,30 @@
+<div class="container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Wybierz zdjęcie do porównania</mat-card-title>
+      <mat-card-subtitle
+        >Pamietaj aby wybrać zdjęcie możliwe najwyższej
+        jakości!</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <div>
+        <input type="file" name="" id="" />
+        <mat-form-field>
+          <mat-label>Wybierz model badań</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let model of models" [value]="model">
+              {{ model }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary">Analizuj</button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-progress-bar mode="determinate"> </mat-progress-bar>
+</div>
+
+<app-result-view></app-result-view>
