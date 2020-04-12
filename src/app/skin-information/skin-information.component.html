@@ -1,0 +1,9 @@
+<div class="container">
+  <mat-card class="card" *ngFor="let card of cards">
+    <h3>{{ card.title | uppercase }}</h3>
+    <img class="image-skin" [src]="imageHelper(card)" />
+    <mat-card-content>
+      {{ card.description }}
+    </mat-card-content>
+  </mat-card>
+</div>

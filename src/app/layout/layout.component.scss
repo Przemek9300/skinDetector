@@ -1,5 +1,19 @@
 .container {
+  height: calc(100% - 64px);
   .menu-button {
     margin: 10px;
   }
+  .nav-items {
+    display: flex;
+    flex-direction: column;
+    .item {
+      margin-top: 10%;
+    }
+  }
+}
+.icon {
+  vertical-align: bottom;
+}
+.main-container {
+  min-height: 80%;
 }

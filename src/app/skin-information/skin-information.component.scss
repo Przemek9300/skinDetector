@@ -1,0 +1,16 @@
+.container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: auto auto;
+  .card {
+    cursor: pointer;
+    flex: 1 1 auto;
+    max-width: 20%;
+    margin: 2% 5%;
+  }
+  .image-skin {
+    max-width: 100%;
+  }
+}
