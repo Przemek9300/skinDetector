@@ -49,20 +49,20 @@ export class ChartComponent implements OnInit, AfterViewInit {
   }
 
   ngOnInit(): void {
-    this.service
-      .getDate()
-      .pipe(
-        map((data) =>
-          data.reduce((prev, curr) => {
-            return [...prev, data.filter((d) => d.dx === curr.dx).length];
-          }, [])
-        )
-      )
-      .subscribe((d) => {
-        Object.keys(d).forEach((key) => {
-          this.addData(this.chart, key, d[key]);
-        });
-      });
+    // this.service
+    //   .getDate()
+    //   .pipe(
+    //     map((data) =>
+    //       data.reduce((prev, curr) => {
+    //         return [...prev, data.filter((d) => d.dx === curr.dx).length];
+    //       }, [])
+    //     )
+    //   )
+    //   .subscribe((d) => {
+    //     Object.keys(d).forEach((key) => {
+    //       this.addData(this.chart, key, d[key]);
+    //     });
+    //   });
   }
   public addData(chart, label, data) {
     chart.data.datasets.data = data;
