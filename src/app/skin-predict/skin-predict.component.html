@@ -8,8 +8,8 @@
       >
     </mat-card-header>
     <mat-card-content>
-      <div>
-        <div class="box__input">
+      <div class="box_upload">
+        <div class="box__input has-advanced-upload">
           <input
             class="box__file"
             type="file"
@@ -18,20 +18,15 @@
             data-multiple-caption="{count} files selected"
             multiple
           />
-          <label for="file"
-            ><strong>Choose a file</strong
-            ><span class="box__dragndrop"> or drag it here</span>.</label
-          >
-          <button class="box__button" type="submit">Upload</button>
         </div>
-        <mat-form-field>
+        <!-- <mat-form-field>
           <mat-label>Wybierz model badawczy</mat-label>
           <mat-select>
             <mat-option *ngFor="let model of models" [value]="model">
               {{ model }}
             </mat-option>
           </mat-select>
-        </mat-form-field>
+        </mat-form-field> -->
       </div>
     </mat-card-content>
     <mat-card-actions>

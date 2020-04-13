@@ -6,10 +6,12 @@
     flex-direction: row;
   }
 }
-.box.has-advanced-upload {
-  background-color: white;
+.box_upload {
+  background-color: #96b2b6;
   outline: 2px dashed black;
   outline-offset: -10px;
+  width: 150px;
+  height: 100px;
 }
 .box.has-advanced-upload .box__dragndrop {
   display: inline;

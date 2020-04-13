@@ -9,9 +9,10 @@ import { MaterialModule } from './material/material.module';
 import { RouterModule } from '@angular/router';
 import { SkinPredictComponent } from './skin-predict/skin-predict.component';
 import { ResultViewComponent } from './skin-predict/result-view/result-view.component';
-import { ChartsComponent } from './charts/charts.component';
+import { ChartsComponent } from './charts-container/charts.component';
 import { SkinInformationComponent } from './skin-information/skin-information.component';
 import { HttpClientModule } from '@angular/common/http';
+import { ChartComponent } from './charts-container/chart/chart.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { HttpClientModule } from '@angular/common/http';
     ResultViewComponent,
     ChartsComponent,
     SkinInformationComponent,
+    ChartComponent,
   ],
   imports: [
     BrowserModule,

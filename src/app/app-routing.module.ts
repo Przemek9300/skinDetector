@@ -1,7 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { SkinPredictComponent } from './skin-predict/skin-predict.component';
-import { ChartsComponent } from './charts/charts.component';
+import { ChartsComponent } from './charts-container/charts.component';
 import { SkinInformationComponent } from './skin-information/skin-information.component';
 
 const routes: Routes = [
