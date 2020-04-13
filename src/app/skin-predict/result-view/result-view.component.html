@@ -5,7 +5,7 @@
     </div>
 
     <li *ngFor="let item of predictions; let i = index">
-      {{ labels[i] }} {{ item }}
+      {{ labels[i] }} {{ item | percent }}
     </li>
   </mat-card>
 </div>

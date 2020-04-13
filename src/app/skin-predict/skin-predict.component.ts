@@ -36,7 +36,7 @@ export class SkinPredictComponent implements OnInit {
   async predict() {
     let img = tf.browser.fromPixels(this.userImage.nativeElement);
     img = tf.image
-      .resizeBilinear(img, [180, 135], true)
+      .resizeBilinear(img, [224, 224], true)
       .toFloat()
       .expandDims(0);
     this.predictions = await this.modelTF.predict(img).data();
