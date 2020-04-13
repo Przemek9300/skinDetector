@@ -1,47 +1,17 @@
-<mat-toolbar color="primary">
-  <mat-toolbar-row>
-    <span>Skin Detector</span>
-  </mat-toolbar-row>
-</mat-toolbar>
-
-<mat-sidenav-container class="container">
-  <mat-sidenav #sidenav mode="side">
-    <nav class="nav-items">
-      <button
-        [routerLink]="['']"
-        routerLinkActive="router-link-active"
-        class="item"
-        mat-button
-      >
-        <mat-icon class="icon">home</mat-icon>Home
-      </button>
-      <button
-        class="item"
-        mat-button
-        [routerLink]="['info']"
-        routerLinkActive="router-link-active"
-      >
-        <mat-icon class="icon">book</mat-icon>Encyklopedia
-      </button>
-      <button
-        class="item"
-        mat-button
-        [routerLink]="['chart']"
-        routerLinkActive="router-link-active"
-      >
-        <mat-icon class="icon">bar_chart</mat-icon>Wykresy
-      </button>
-    </nav>
-  </mat-sidenav>
-  <mat-sidenav-content class="main-container">
-    <button
-      class="menu-button"
-      color="primary"
-      mat-raised-button
-      (click)="sidenav.toggle()"
-    >
-      Menu
-    </button>
+<div class="wrapper">
+  <div class="navbar">
+    <div class="logo">
+      <span class="logo-text">Skin<span class="logo-text1">Detector</span></span>
+    </div>
+  </div>
+  <div class="sidebar">
+    <div class="button-wrapper">
+      <i class="material-icons" [routerLink]="['']">home</i>
+      <i class="material-icons" [routerLink]="['info']">info</i>
+      <i class="material-icons" [routerLink]="['chart']">show_chart</i>
+    </div>
+  </div>
+  <div class="content">
     <router-outlet></router-outlet>
-  </mat-sidenav-content>
-</mat-sidenav-container>
+  </div>
+</div>

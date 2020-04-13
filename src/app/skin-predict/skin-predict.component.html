@@ -1,39 +1,16 @@
 <div class="container">
-  <mat-card>
-    <mat-card-header>
-      <mat-card-title>Wybierz zdjęcie do porównania</mat-card-title>
-      <mat-card-subtitle
-        >Pamietaj aby wybrać zdjęcie możliwe najwyższej
-        jakości!</mat-card-subtitle
-      >
-    </mat-card-header>
-    <mat-card-content>
-      <div class="box_upload">
-        <div class="box__input has-advanced-upload">
-          <input
-            class="box__file"
-            type="file"
-            name="files[]"
-            id="file"
-            data-multiple-caption="{count} files selected"
-            multiple
-          />
-        </div>
-        <!-- <mat-form-field>
-          <mat-label>Wybierz model badawczy</mat-label>
-          <mat-select>
-            <mat-option *ngFor="let model of models" [value]="model">
-              {{ model }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field> -->
-      </div>
-    </mat-card-content>
-    <mat-card-actions>
-      <button mat-raised-button color="primary">Analizuj</button>
-    </mat-card-actions>
-  </mat-card>
-  <mat-progress-bar mode="determinate"> </mat-progress-bar>
+  <div class="section add-pic">
+    <span class="title">Wybierz zdjęcie do porównania</span>
+    <span class="subtitle">Pamietaj aby wybrać zdjęcie możliwe najwyższej
+      jakości!</span>
+    <div class="button-wrapper">
+      <i class="material-icons">add_a_photo</i>
+    </div>
+    <div class="btn">
+      <input class="button" type="button" value="Start">
+    </div>
+  </div>
+  <div class="section result">
+    <!-- <app-result-view></app-result-view> -->
+  </div>
 </div>
-
-<app-result-view></app-result-view>

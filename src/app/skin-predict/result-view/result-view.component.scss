@@ -1,11 +1,21 @@
 .container {
-  width: 60%;
-  margin: 5% auto;
-  .card {
-    min-height: 250px;
-    margin: auto auto;
-    .title {
-      margin: auto auto;
+  width: 100%;
+  height: 100%;
+  padding: 1em;
+
+  .title {
+    display: grid;
+    width: 100%;
+    height: 100%;
+    place-content: center;
+
+    span {
+      margin: 0.5em;
+      font-family: "Poppins", sans-serif;
+      display: block;
+      color: white;
+      text-align: center;
+      font-size: 2em;
     }
   }
 }
