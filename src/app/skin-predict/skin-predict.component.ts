@@ -24,8 +24,6 @@ export class SkinPredictComponent implements OnInit {
   public onFileChanged(event) {
     const file = event.target.files[0];
     if (file) {
-      console.log('halko');
-
       const reader = new FileReader();
 
       reader.readAsDataURL(file);
