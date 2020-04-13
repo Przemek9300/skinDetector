@@ -25,8 +25,11 @@ export class ChartComponent implements OnInit, AfterViewInit {
     this.chart = new Chart('canvas', {
       type: 'bar',
       data: {
-        labels: [],
-        datasets: [{}, {}],
+        labels: ['Label1', 'Label2', 'Label3', 'Label4'],
+        borderColor: '#fffff',
+        datasets: [
+          {},
+        ],
       },
       options: {
         legend: {
@@ -36,11 +39,39 @@ export class ChartComponent implements OnInit, AfterViewInit {
           xAxes: [
             {
               display: true,
+              gridLines: {
+                display: true,
+                color: '#FFFFFF',
+              },
+              scaleLabel: {
+                display: true,
+                labelString: 'X axe name',
+                fontColor: '#FFFFFF',
+                fontSize: 12,
+              },
+              ticks: {
+                fontColor: '#FFFFFF',
+                fontSize: 12,
+              },
             },
           ],
           yAxes: [
             {
               display: true,
+              gridLines: {
+                display: true,
+                color: '#FFFFFF',
+              },
+              scaleLabel: {
+                display: true,
+                labelString: 'X axe name',
+                fontColor: '#FFFFFF',
+                fontSize: 12,
+              },
+              ticks: {
+                fontColor: '#FFFFFF',
+                fontSize: 12,
+              },
             },
           ],
         },

@@ -1,4 +1,17 @@
 .container {
-  max-width: 80%;
-  margin: auto auto;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  .x {
+    background-color: white;
+    color: white;
+  }
+
+  .c {
+    background-color: white;
+    color: white;
+  }
 }
