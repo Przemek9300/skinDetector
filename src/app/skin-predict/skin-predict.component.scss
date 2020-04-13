@@ -5,14 +5,8 @@
     display: flex;
     flex-direction: row;
   }
-}
-.box_upload {
-  background-color: #96b2b6;
-  outline: 2px dashed black;
-  outline-offset: -10px;
-  width: 150px;
-  height: 100px;
-}
-.box.has-advanced-upload .box__dragndrop {
-  display: inline;
+  .image_uploaded {
+    width: 400px;
+    height: auto;
+  }
 }

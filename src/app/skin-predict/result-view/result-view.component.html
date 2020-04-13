@@ -1,7 +1,11 @@
 <div class="container">
   <mat-card class="card">
-    <div class="title">
+    <div *ngIf="predictions === null" class="title">
       <h1>Musisz wcześniej przeprowadzić analize!</h1>
     </div>
+
+    <li *ngFor="let item of predictions; let i = index">
+      {{ labels[i] }} {{ item }}
+    </li>
   </mat-card>
 </div>

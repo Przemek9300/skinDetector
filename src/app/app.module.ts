@@ -13,6 +13,7 @@ import { ChartsComponent } from './charts-container/charts.component';
 import { SkinInformationComponent } from './skin-information/skin-information.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ChartComponent } from './charts-container/chart/chart.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,8 @@ import { ChartComponent } from './charts-container/chart/chart.component';
     MaterialModule,
     RouterModule,
     HttpClientModule,
+    FormsModule,
+    ReactiveFormsModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
