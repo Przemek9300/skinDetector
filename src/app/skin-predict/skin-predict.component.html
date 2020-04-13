@@ -14,3 +14,43 @@
     <!-- <app-result-view></app-result-view> -->
   </div>
 </div>
+
+<!-- to jest stare podejscie  -->
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Wybierz zdjęcie do porównania</mat-card-title>
+      <mat-card-subtitle
+        >Pamietaj aby wybrać zdjęcie możliwe najwyższej
+        jakości!</mat-card-subtitle
+      >
+    </mat-card-header>
+    <mat-card-content>
+      <div class="box_upload">
+        <div class="box__input has-advanced-upload">
+          <input
+            class="box__file"
+            type="file"
+            (change)="onFileChanged($event)"
+          />
+        </div>
+        <img class="image_uploaded" #userImage [src]="image?.result" />
+        <!-- <mat-form-field>
+          <mat-label>Wybierz model badawczy</mat-label>
+          <mat-select>
+            <mat-option *ngFor="let model of models" [value]="model">
+              {{ model }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field> -->
+      </div>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (click)="predict()">
+        Analizuj
+      </button>
+    </mat-card-actions>
+  </mat-card>
+  <mat-progress-bar mode="determinate"> </mat-progress-bar>
+</div>
+
+<app-result-view [predictions]="predictions"></app-result-view>
