@@ -1,5 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as tf from '@tensorflow/tfjs';
+import { Router } from '@angular/router';
+import { SkinPredictService } from '../skin-predict.service';
 @Component({
   selector: 'app-skin-predict',
   templateUrl: './skin-predict.component.html',
@@ -10,10 +12,10 @@ export class SkinPredictComponent implements OnInit {
   public models: ['cancer-skin-2020-02-01', 'cancer-skin-2019-02-01'];
   public modelTF: any;
   public selectedValue: string;
-  public image: any;
+  public image: any = null;
   public predictions: number[] = null;
 
-  constructor() {}
+  constructor(private router: Router, private service: SkinPredictService) {}
 
   public async ngOnInit(): Promise<void> {
     await this.loadModel();
@@ -33,12 +35,17 @@ export class SkinPredictComponent implements OnInit {
       };
     }
   }
-  async predict() {
+  public async predict() {
     let img = tf.browser.fromPixels(this.userImage.nativeElement);
     img = tf.image
       .resizeBilinear(img, [224, 224], true)
       .toFloat()
       .expandDims(0);
-    this.predictions = await this.modelTF.predict(img).data();
+    this.modelTF
+      .predict(img)
+      .data()
+      .then((value) => this.service.skinPrediction.next(value));
+
+    this.router.navigate(['result']);
   }
 }

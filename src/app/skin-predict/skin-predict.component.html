@@ -1,14 +1,14 @@
 <div class="container">
   <div class="section">
     <span class="title">Wybierz zdjęcie do porównania</span>
-    <span class="subtitle">Pamietaj aby wybrać zdjęcie możliwe najwyższej
-      jakości!</span>
-    <div class="button-wrapper">
+    <span class="subtitle">Pamietaj aby wybrać zdjęcie możliwe najwyższej jakości!</span>
+    <label class="button-wrapper">
+      <input hidden class="input-file" type="file" name="" id="" (change)="onFileChanged($event)" />
       <i class="material-icons">add_a_photo</i>
-    </div>
+    </label>
     <div class="btn-start">
-      <input class="button" type="button" value="Start">
+      <input class="button" type="button" value="Start" (click)="predict()" />
     </div>
   </div>
 </div>
-
+<img class="image_hidden" class="image_uploaded" #userImage [src]="image?.result" />
