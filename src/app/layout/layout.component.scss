@@ -5,8 +5,8 @@
   height: 100%;
   overflow: hidden;
   display: grid;
-  grid-template-columns: 1fr 0.1fr;
-  grid-template-rows: 0.1fr 1fr;
+  grid-template-columns: 90% 10%;
+  grid-template-rows: 10% 90%;
   grid-column-gap: 0px;
   grid-row-gap: 0px;
   grid-template-areas:
@@ -58,9 +58,7 @@
 }
 
 .content {
-  // grid-area: content;
   border: 1px solid red;
-  // place-content: center;
 }
 
 
