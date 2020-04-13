@@ -1,9 +1,13 @@
-
 .container {
   width: 100%;
   height: 100%;
   margin: auto auto;
-
+  .input_file {
+    display: none;
+  }
+  .image_hidden {
+    display: none;
+  }
   .add-pic {
     margin: 10em auto;
     width: 50%;
@@ -96,7 +100,7 @@
       margin-right: 5px;
       height: 50px;
       min-width: 100px;
-      background:#0d54df;
+      background: #0d54df;
       border: none;
       outline: none;
       color: white;
@@ -140,7 +144,9 @@
     }
   }
   .image_uploaded {
-    width: 400px;
-    height: auto;
+    display: none;
   }
+}
+input[type="file"]:disabled {
+  background: #dddddd;
 }

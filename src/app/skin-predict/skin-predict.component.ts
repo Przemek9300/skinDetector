@@ -10,7 +10,7 @@ export class SkinPredictComponent implements OnInit {
   public models: ['cancer-skin-2020-02-01', 'cancer-skin-2019-02-01'];
   public modelTF: any;
   public selectedValue: string;
-  public image: any;
+  public image: any = null;
   public predictions: number[] = null;
 
   constructor() {}
