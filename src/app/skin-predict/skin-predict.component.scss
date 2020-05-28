@@ -1,12 +1,50 @@
 .container {
-  width: 60%;
-  margin: 5% auto;
+  width: 65%;
+  margin: 2% auto;
+  .form-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    align-items: center;
+    margin-top: 5%;
+    flex-wrap: wrap;
+  }
+  .image_box {
+    border-radius: 10px;
+    cursor: pointer;
+    outline: 2px dotted grey;
+    vertical-align: middle;
+  }
+  .image_box:hover {
+    cursor: pointer;
+    outline: 2px dotted #3f51b5;
+  }
+
   .form-container {
     display: flex;
     flex-direction: row;
   }
-  .image_uploaded {
-    width: 400px;
-    height: auto;
+  .image_user_box {
+    width: 224px;
+    outline: 2px dotted #3f51b5;
+    align-items: center;
   }
+}
+.image_uploaded {
+  width: 224px;
+  height: auto;
+  margin: auto;
+  vertical-align: middle;
+  padding: 10px;
+}
+.input_select {
+  display: flex;
+  flex-direction: column;
+}
+.sub-header {
+  text-align: center;
+}
+.select_model {
+  margin: 0 auto;
+  padding: 10px;
 }

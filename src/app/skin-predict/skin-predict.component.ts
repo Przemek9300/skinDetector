@@ -1,25 +1,60 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import * as tf from '@tensorflow/tfjs';
+import { HAM10000Service } from '../services/ham10000.service';
+import { Observable } from 'rxjs';
+import { AngularFireStorage } from 'angularfire2/storage';
+import { async } from '@angular/core/testing';
+import { FormControl } from '@angular/forms';
+import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-skin-predict',
   templateUrl: './skin-predict.component.html',
   styleUrls: ['./skin-predict.component.scss'],
 })
 export class SkinPredictComponent implements OnInit {
-  @ViewChild('userImage') public userImage;
-  public models: ['cancer-skin-2020-02-01', 'cancer-skin-2019-02-01'];
+  @ViewChild('userImage') public userImage = null;
+  public cancerModels: { value: string; viewValue: string }[] = [];
   public modelTF: any;
   public selectedValue: string;
   public image: any;
-  public predictions: number[] = null;
+  public predictions: number = null;
+  public loading = false;
+  public formControl = new FormControl('');
 
-  constructor() {}
+  constructor(
+    private service: HAM10000Service,
+    private afStorage: AngularFireStorage,
+    private http: HttpClient
+  ) {}
 
   public async ngOnInit(): Promise<void> {
-    await this.loadModel();
+    this.afStorage.storage
+      .ref()
+      .listAll()
+      .then(
+        (el) =>
+          (this.cancerModels = el.items.map((item) => ({
+            value: item.name,
+            viewValue: item.name,
+          })))
+      );
+    this.formControl.valueChanges.subscribe(async (value) => {
+      await this.loadModel(value);
+    });
   }
-  public async loadModel() {
-    this.modelTF = await tf.loadLayersModel('/assets/model-tf/model.json');
+  public async loadModel(selectedValue: string) {
+    console.log(selectedValue);
+
+    this.afStorage.storage
+      .ref()
+      .child(selectedValue)
+      .getDownloadURL()
+      .then(async (url) => {
+        console.log(url);
+
+        this.modelTF = await tf.loadLayersModel(tf.io.http(url));
+        console.log(this.modelTF);
+      });
   }
   public onFileChanged(event) {
     const file = event.target.files[0];
@@ -33,12 +68,19 @@ export class SkinPredictComponent implements OnInit {
       };
     }
   }
-  async predict() {
+  predict(): Observable<void> {
+    this.loading = true;
     let img = tf.browser.fromPixels(this.userImage.nativeElement);
     img = tf.image
       .resizeBilinear(img, [224, 224], true)
       .toFloat()
       .expandDims(0);
-    this.predictions = await this.modelTF.predict(img).data();
+    return this.modelTF
+      .predict(img)
+      .data()
+      .then((prediction) => {
+        this.loading = false;
+        this.service.predictSubject.next(prediction);
+      });
   }
 }

@@ -14,8 +14,9 @@ export class ChartsComponent implements OnInit {
 
   ngOnInit(): void {
     this.service
-      .getDate()
+      .getSkinDate()
       .pipe(
+        tap((d) => console.log(d)),
         map((data) =>
           data.reduce((prev, curr) => {
             return {
@@ -25,8 +26,6 @@ export class ChartsComponent implements OnInit {
           }, {})
         )
       )
-      .subscribe((d) => {
-        this.data = d;
-      });
+      .subscribe((d) => {});
   }
 }

@@ -1,11 +1,33 @@
 .container {
-  width: 60%;
-  margin: 5% auto;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: auto auto;
+
   .card {
-    min-height: 250px;
+    cursor: pointer;
+    flex: 1 1 auto;
+    max-width: 45%;
     margin: auto auto;
-    .title {
-      margin: auto auto;
+  }
+  .image-skin {
+    border-radius: 10px;
+
+    max-width: 100%;
+  }
+  .chart {
+    width: 50%;
+    margin: auto auto;
+    .chart-selector {
+      margin: 10px;
     }
   }
+}
+
+.hide {
+  display: none;
+}
+.button {
+  margin: 20px 20px;
 }

@@ -14,6 +14,10 @@ import { SkinInformationComponent } from './skin-information/skin-information.co
 import { HttpClientModule } from '@angular/common/http';
 import { ChartComponent } from './charts-container/chart/chart.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { ModelUploadComponent } from './model-upload/model-upload.component';
+import { environment } from 'src/environments/environment';
 
 @NgModule({
   declarations: [
@@ -24,6 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     ChartsComponent,
     SkinInformationComponent,
     ChartComponent,
+    ModelUploadComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +39,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireStorageModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

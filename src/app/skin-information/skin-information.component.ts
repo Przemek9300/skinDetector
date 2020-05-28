@@ -6,7 +6,7 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./skin-information.component.scss'],
 })
 export class SkinInformationComponent implements OnInit {
-  public cards: skinCard[] = [
+  public cards: SkinCard[] = [
     {
       label: 'akiec',
       title: 'Actinic Keratoses(akiec)',
@@ -57,7 +57,7 @@ export class SkinInformationComponent implements OnInit {
         'The most common vascular lesions in childhood are the hemangiomas of infancy and, in adulthood, the cherry angiomas. Hemangiomas and angiomas are benign proliferations of blood vessels. (Dermoscopedia)',
     },
   ];
-  public imageHelper(card: skinCard): string {
+  public imageHelper(card: SkinCard): string {
     return `/assets/skin-images/${card.label}.jpg`;
   }
   constructor() {}
@@ -65,7 +65,7 @@ export class SkinInformationComponent implements OnInit {
   ngOnInit(): void {}
 }
 
-interface skinCard {
+export interface SkinCard {
   title: string;
   label: string;
   description: string;

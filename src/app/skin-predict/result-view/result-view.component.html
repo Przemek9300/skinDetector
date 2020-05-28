@@ -1,11 +1,26 @@
-<div class="container">
-  <mat-card class="card">
-    <div *ngIf="predictions === null" class="title">
-      <h1>Musisz wcześniej przeprowadzić analize!</h1>
-    </div>
-
-    <li *ngFor="let item of predictions; let i = index">
-      {{ labels[i] }} {{ item | percent }}
-    </li>
-  </mat-card>
+<div [ngClass]="{ hide: card === null }" class="container">
+  <div class="card">
+    <h3>{{ card?.title | uppercase }}</h3>
+    <img class="image-skin" [src]="imageHelper(card)" />
+    <mat-card-content>
+      {{ card?.description }}
+    </mat-card-content>
+  </div>
+  <div class="chart">
+    <mat-form-field>
+      <mat-label>Wybierz wykres</mat-label>
+      <mat-select
+        mat-button
+        class="chart-selector"
+        placeholder=""
+        [(ngModel)]="selectedChart"
+        name="item"
+      >
+        <mat-option *ngFor="let item of chartViews" [value]="item.value">
+          {{ item.viewValue }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+    <canvas id="canvas" #canvasChart></canvas>
+  </div>
 </div>
