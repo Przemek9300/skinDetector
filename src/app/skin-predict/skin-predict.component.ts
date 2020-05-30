@@ -45,16 +45,16 @@ export class SkinPredictComponent implements OnInit {
   public async loadModel(selectedValue: string) {
     console.log(selectedValue);
 
-    this.afStorage.storage
-      .ref()
-      .child(selectedValue)
-      .getDownloadURL()
-      .then(async (url) => {
-        console.log(url);
+    // this.afStorage.storage
+    //   .ref()
+    //   .child(selectedValue)
+    //   .getDownloadURL()
+    //   .then(async (url) => {
+    //     console.log(url);
 
-        this.modelTF = await tf.loadLayersModel(tf.io.http(url));
-        console.log(this.modelTF);
-      });
+    //     console.log(this.modelTF);
+    //   });
+    this.modelTF = await tf.loadLayersModel(`/assets/model-ml/model.json`);
   }
   public onFileChanged(event) {
     const file = event.target.files[0];
