@@ -1,9 +1,18 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { TYPE_OF_SKINS } from 'src/app/models/labels';
 import { HAM10000Service } from 'src/app/services/ham10000.service';
-import { switchMap, map } from 'rxjs/operators';
+import {
+  switchMap,
+  map,
+  filter,
+  startWith,
+  tap,
+  withLatestFrom,
+} from 'rxjs/operators';
 import { SkinCard } from 'src/app/skin-information/skin-information.component';
 import { Chart } from 'chart.js';
+import { FormControl } from '@angular/forms';
+import { of, combineLatest } from 'rxjs';
 
 @Component({
   selector: 'app-result-view',
@@ -12,22 +21,44 @@ import { Chart } from 'chart.js';
 })
 export class ResultViewComponent implements OnInit {
   public chartViews = [
-    { viewValue: 'Prawdopodobienstwo', value: 0 },
-    { viewValue: 'Wiek', value: 0 },
-    { viewValue: 'Wystepowanie', value: 0 },
+    { viewValue: 'Prawdopodobienstwo', value: SelectedChart.prediction },
+    { viewValue: 'Wiek', value: SelectedChart.age },
+    { viewValue: 'Wystepowanie', value: SelectedChart.localization },
+    { viewValue: 'Płeć', value: SelectedChart.sex },
   ];
-  public selectedChart: number = 0;
-  public highestLabel;
+  public selectedChart: FormControl = new FormControl(SelectedChart.prediction);
   public labels = TYPE_OF_SKINS;
   public card: SkinCard = null;
   public prediction: number[];
+  probability: number[];
   constructor(private service: HAM10000Service) {}
   public updateChart(y: number[]) {
+    this.selectedChart.setValue(SelectedChart.prediction);
+    this.chart.config.type = this.resolveTypeOfChart();
+
     this.chart.data.datasets[0].data = y;
+    this.chart.data.labels = this.labels;
+
+    this.chart.update();
+  }
+  public updateChart2(data: any[]) {
+    this.chart.config.type = this.resolveTypeOfChart();
+    this.chart.data.datasets[0].data = Object.values(data);
+    this.chart.data.labels = Object.keys(data);
     this.chart.update();
   }
   public ngOnInit(): void {
+    this.selectedChart.valueChanges
+      .pipe(
+        filter((value) => SelectedChart.prediction !== value),
+        switchMap((value) => this.service.getChart(value, this.card.label))
+      )
+      .subscribe((value) => this.updateChart2(value));
     this.service.predictSubject.subscribe((pred) => this.updateChart(pred));
+
+    this.service.predictSubject.subscribe(
+      (probability) => (this.probability = probability)
+    );
 
     this.service.predictSubject
       .pipe(
@@ -55,11 +86,43 @@ export class ResultViewComponent implements OnInit {
   public chart: any;
 
   ngAfterViewInit(): void {
+    const myColors = ['red', 'green', 'blue'];
     this.chart = new Chart('canvas', {
       type: 'bar',
       data: {
         labels: this.labels,
-        datasets: [{}],
+        datasets: [
+          {
+            backgroundColor: [
+              'rgba(255, 99, 132, 1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 99, 255, 1)',
+              'rgba(54, 162, 133, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 22, 44, 1)',
+              'rgba(153, 102, 33, 1)',
+              'rgba(255, 23, 64, 1)',
+            ],
+            borderColor: [
+              'rgba(255,99,132,1)',
+              'rgba(54, 162, 235, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 192, 192, 1)',
+              'rgba(153, 102, 255, 1)',
+              'rgba(255, 159, 64, 1)',
+              'rgba(255, 99, 255, 1)',
+              'rgba(54, 162, 133, 1)',
+              'rgba(255, 206, 86, 1)',
+              'rgba(75, 22, 44, 1)',
+              'rgba(153, 102, 33, 1)',
+              'rgba(255, 23, 64, 1)',
+            ],
+          },
+        ],
       },
       options: {
         legend: {
@@ -80,4 +143,17 @@ export class ResultViewComponent implements OnInit {
       },
     });
   }
+
+  public resolveTypeOfChart(): string {
+    const v = this.selectedChart.value;
+    if (v === SelectedChart.age) return 'line';
+    return 'bar';
+  }
+}
+
+enum SelectedChart {
+  prediction = 'prediction',
+  age = 'age',
+  sex = 'sex',
+  localization = 'localization',
 }

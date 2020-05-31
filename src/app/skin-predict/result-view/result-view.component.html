@@ -13,8 +13,7 @@
         mat-button
         class="chart-selector"
         placeholder=""
-        [(ngModel)]="selectedChart"
-        name="item"
+        [formControl]="selectedChart"
       >
         <mat-option *ngFor="let item of chartViews" [value]="item.value">
           {{ item.viewValue }}

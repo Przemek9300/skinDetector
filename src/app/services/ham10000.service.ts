@@ -11,8 +11,11 @@ export class HAM10000Service {
   public getSkinDate(): Observable<SkinDate[]> {
     return this.http.get<SkinDate[]>('./assets/ham10000.json');
   }
-  public getSkinsCard() {
-    return this.http.get('./assets/./assets/ham10000.json');
+  public getSkinsCard(): Observable<any[]> {
+    return this.http.get<any[]>('./assets/skin-information.json');
+  }
+  public getChart(category: string, label: string): Observable<any[]> {
+    return this.http.get<any[]>(`./assets/chart/${label}-${category}.json`);
   }
 }
 

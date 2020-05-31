@@ -3,9 +3,7 @@ import * as tf from '@tensorflow/tfjs';
 import { HAM10000Service } from '../services/ham10000.service';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from 'angularfire2/storage';
-import { async } from '@angular/core/testing';
 import { FormControl } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 @Component({
   selector: 'app-skin-predict',
   templateUrl: './skin-predict.component.html',
@@ -13,48 +11,43 @@ import { HttpClient } from '@angular/common/http';
 })
 export class SkinPredictComponent implements OnInit {
   @ViewChild('userImage') public userImage = null;
-  public cancerModels: { value: string; viewValue: string }[] = [];
-  public modelTF: any;
+  public cancerModels: { value: string; viewValue: string }[] = [
+    { value: 'model.json', viewValue: '2019-09-10 - model' },
+    { value: 'model2.json', viewValue: '2019-12-10 - model' },
+    { value: 'model3.json', viewValue: '2020-02-10 - model' },
+    { value: 'model4/model4.json', viewValue: '2020-03-12 - model' },
+  ];
+  public modelTF: any = null;
   public selectedValue: string;
-  public image: any;
+  public image: any = null;
   public predictions: number = null;
   public loading = false;
   public formControl = new FormControl('');
 
   constructor(
     private service: HAM10000Service,
-    private afStorage: AngularFireStorage,
-    private http: HttpClient
+    private afStorage: AngularFireStorage
   ) {}
 
   public async ngOnInit(): Promise<void> {
-    this.afStorage.storage
-      .ref()
-      .listAll()
-      .then(
-        (el) =>
-          (this.cancerModels = el.items.map((item) => ({
-            value: item.name,
-            viewValue: item.name,
-          })))
-      );
+    // this.afStorage.storage
+    //   .ref()
+    //   .listAll()
+    //   .then(
+    //     (el) =>
+    //       (this.cancerModels = el.items.map((item) => ({
+    //         value: item.name,
+    //         viewValue: item.name,
+    //       })))
+    //   );
     this.formControl.valueChanges.subscribe(async (value) => {
       await this.loadModel(value);
     });
   }
   public async loadModel(selectedValue: string) {
-    console.log(selectedValue);
-
-    // this.afStorage.storage
-    //   .ref()
-    //   .child(selectedValue)
-    //   .getDownloadURL()
-    //   .then(async (url) => {
-    //     console.log(url);
-
-    //     console.log(this.modelTF);
-    //   });
-    this.modelTF = await tf.loadLayersModel(`/assets/model-ml/model.json`);
+    this.modelTF = await tf.loadLayersModel(
+      `/assets/model-tf/${selectedValue}`
+    );
   }
   public onFileChanged(event) {
     const file = event.target.files[0];
