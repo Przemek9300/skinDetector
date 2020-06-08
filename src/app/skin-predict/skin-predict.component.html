@@ -1,4 +1,5 @@
 <div class="container">
+  <ngx-spinner></ngx-spinner>
   <mat-card>
     <mat-card-header>
       <mat-card-title>Wybierz zdjęcie do porównania</mat-card-title>
@@ -51,7 +52,12 @@
     <mat-divider></mat-divider>
 
     <mat-card-content class="form-container">
-      <button mat-raised-button color="primary" (click)="predict()">
+      <button
+        [disabled]="formControl.invalid === true || image === null"
+        mat-raised-button
+        color="primary"
+        (click)="predict()"
+      >
         ANALIZUJ
       </button>
     </mat-card-content>

@@ -18,7 +18,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFireStorageModule } from 'angularfire2/storage';
 import { ModelUploadComponent } from './model-upload/model-upload.component';
 import { environment } from 'src/environments/environment';
-
+import { NgxSpinnerModule } from 'ngx-spinner';
 @NgModule({
   declarations: [
     AppComponent,
@@ -41,6 +41,7 @@ import { environment } from 'src/environments/environment';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
+    NgxSpinnerModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

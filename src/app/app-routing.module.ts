@@ -9,8 +9,8 @@ const routes: Routes = [
   { path: '', component: SkinPredictComponent },
   { path: 'charts', component: ChartsComponent },
   { path: 'info', component: SkinInformationComponent },
-  { path: 'chart', component: ChartsComponent },
-  { path: 'upload', component: ModelUploadComponent },
+  // { path: 'chart', component: ChartsComponent },
+  // { path: 'upload', component: ModelUploadComponent },
 ];
 
 @NgModule({
