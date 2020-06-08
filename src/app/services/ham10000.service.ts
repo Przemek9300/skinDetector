@@ -9,13 +9,13 @@ export class HAM10000Service {
   public predictSubject = new Subject<number[]>();
   constructor(private http: HttpClient) {}
   public getSkinDate(): Observable<SkinDate[]> {
-    return this.http.get<SkinDate[]>('./assets/ham10000.json');
+    return this.http.get<SkinDate[]>('/assets/ham10000.json');
   }
   public getSkinsCard(): Observable<any[]> {
-    return this.http.get<any[]>('./assets/skin-information.json');
+    return this.http.get<any[]>('/assets/skin-information.json');
   }
   public getChart(category: string, label: string): Observable<any[]> {
-    return this.http.get<any[]>(`./assets/chart/${label}-${category}.json`);
+    return this.http.get<any[]>(`/assets/chart/${label}-${category}.json`);
   }
 }
 
