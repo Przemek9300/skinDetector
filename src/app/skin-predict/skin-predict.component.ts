@@ -3,7 +3,7 @@ import * as tf from '@tensorflow/tfjs';
 import { HAM10000Service } from '../services/ham10000.service';
 import { Observable } from 'rxjs';
 import { AngularFireStorage } from 'angularfire2/storage';
-import { FormControl } from '@angular/forms';
+import { FormControl, Validators } from '@angular/forms';
 @Component({
   selector: 'app-skin-predict',
   templateUrl: './skin-predict.component.html',
@@ -22,7 +22,7 @@ export class SkinPredictComponent implements OnInit {
   public image: any = null;
   public predictions: number = null;
   public loading = false;
-  public formControl = new FormControl('');
+  public formControl = new FormControl('', Validators.required);
 
   constructor(
     private service: HAM10000Service,

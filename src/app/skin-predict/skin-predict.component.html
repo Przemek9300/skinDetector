@@ -51,12 +51,7 @@
     <mat-divider></mat-divider>
 
     <mat-card-content class="form-container">
-      <button
-        [disabled]="selectedValue === null && modelTF === null"
-        mat-raised-button
-        color="primary"
-        (click)="predict()"
-      >
+      <button mat-raised-button color="primary" (click)="predict()">
         ANALIZUJ
       </button>
     </mat-card-content>
