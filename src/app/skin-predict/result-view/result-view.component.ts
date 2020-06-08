@@ -78,8 +78,8 @@ export class ResultViewComponent implements OnInit {
       .subscribe((card) => (this.card = card));
   }
   public imageHelper(card: SkinCard): string {
-    if (card) return `/assets/skin-images/${card.label}.jpg`;
-    return `/assets/placeholder.jpg`;
+    if (card) return `./assets/skin-images/${card.label}.jpg`;
+    return `./assets/placeholder.jpg`;
   }
 
   public data: any;

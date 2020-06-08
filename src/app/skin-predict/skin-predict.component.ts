@@ -46,7 +46,7 @@ export class SkinPredictComponent implements OnInit {
   }
   public async loadModel(selectedValue: string) {
     this.modelTF = await tf.loadLayersModel(
-      `/assets/model-tf/${selectedValue}`
+      `./assets/model-tf/${selectedValue}`
     );
   }
   public onFileChanged(event) {

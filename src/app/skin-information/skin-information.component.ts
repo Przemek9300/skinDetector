@@ -58,7 +58,7 @@ export class SkinInformationComponent implements OnInit {
     },
   ];
   public imageHelper(card: SkinCard): string {
-    return `/assets/skin-images/${card.label}.jpg`;
+    return `./assets/skin-images/${card.label}.jpg`;
   }
   constructor() {}
 
