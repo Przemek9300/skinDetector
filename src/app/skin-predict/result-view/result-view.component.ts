@@ -33,7 +33,6 @@ export class ResultViewComponent implements OnInit {
   probability: number[];
   constructor(private service: HAM10000Service) {}
   public updateChart(y: number[]) {
-    this.selectedChart.setValue(SelectedChart.prediction);
     this.chart.config.type = this.resolveTypeOfChart();
 
     this.chart.data.datasets[0].data = y;
@@ -54,6 +53,9 @@ export class ResultViewComponent implements OnInit {
         switchMap((value) => this.service.getChart(value, this.card.label))
       )
       .subscribe((value) => this.updateChart2(value));
+    this.selectedChart.valueChanges
+      .pipe(filter((value) => SelectedChart.prediction === value))
+      .subscribe((value) => this.updateChart(this.probability));
     this.service.predictSubject.subscribe((pred) => this.updateChart(pred));
 
     this.service.predictSubject.subscribe(
@@ -125,6 +127,16 @@ export class ResultViewComponent implements OnInit {
         ],
       },
       options: {
+        onClick: (evt) => {
+          const activePoints = this.chart.getElementsAtEventForMode(
+            evt,
+            'point',
+            this.chart.options
+          );
+          const firstPoint = activePoints[0];
+          const label = this.chart.data.labels[firstPoint._index];
+          // this.service.predictSubject.next(TYPE_OF_SKINS.indexOf(label));
+        },
         legend: {
           display: false,
         },
