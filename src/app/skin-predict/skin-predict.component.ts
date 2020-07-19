@@ -5,6 +5,9 @@ import { Observable } from 'rxjs';
 import { AngularFireStorage } from 'angularfire2/storage';
 import { FormControl, Validators } from '@angular/forms';
 import { NgxSpinnerService } from 'ngx-spinner';
+import { PredictionState } from '../store/reducer';
+import { Store } from '@ngrx/store';
+import { setPredictionResult, setLabel } from '../store/actions';
 @Component({
   selector: 'app-skin-predict',
   templateUrl: './skin-predict.component.html',
@@ -27,8 +30,8 @@ export class SkinPredictComponent implements OnInit {
 
   constructor(
     private service: HAM10000Service,
-    private afStorage: AngularFireStorage,
-    private spinner: NgxSpinnerService
+    private spinner: NgxSpinnerService,
+    private store: Store<PredictionState>
   ) {}
 
   public async ngOnInit(): Promise<void> {
@@ -67,7 +70,12 @@ export class SkinPredictComponent implements OnInit {
       .data()
       .then((prediction) => {
         this.spinner.hide();
-        this.service.predictSubject.next(prediction);
+        this.store.dispatch(setPredictionResult({ result: [...prediction] }));
+        this.store.dispatch(
+          setLabel({ index: prediction.indexOf(Math.max(...prediction)) })
+        );
+
+        // this.service.predictSubject.next(prediction);
       });
   }
 }

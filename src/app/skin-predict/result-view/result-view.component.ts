@@ -13,6 +13,15 @@ import { SkinCard } from 'src/app/skin-information/skin-information.component';
 import { Chart } from 'chart.js';
 import { FormControl } from '@angular/forms';
 import { of, combineLatest } from 'rxjs';
+import { PredictionState } from 'src/app/store/reducer';
+import { Store } from '@ngrx/store';
+import {
+  selectState,
+  selectSelectedIndexLabel,
+  selectPredictionResult,
+} from 'src/app/store/selectors';
+import { setLabel } from 'src/app/store/actions';
+import { PercentPipe } from '@angular/common';
 
 @Component({
   selector: 'app-result-view',
@@ -26,12 +35,17 @@ export class ResultViewComponent implements OnInit {
     { viewValue: 'Wystepowanie', value: SelectedChart.localization },
     { viewValue: 'Płeć', value: SelectedChart.sex },
   ];
+
+  public chart: any = null;
   public selectedChart: FormControl = new FormControl(SelectedChart.prediction);
   public labels = TYPE_OF_SKINS;
   public card: SkinCard = null;
   public prediction: number[];
   probability: number[];
-  constructor(private service: HAM10000Service) {}
+  constructor(
+    private service: HAM10000Service,
+    private store: Store<PredictionState>
+  ) {}
   public updateChart(y: number[]) {
     this.chart.config.type = this.resolveTypeOfChart();
 
@@ -56,39 +70,30 @@ export class ResultViewComponent implements OnInit {
     this.selectedChart.valueChanges
       .pipe(filter((value) => SelectedChart.prediction === value))
       .subscribe((value) => this.updateChart(this.probability));
-    this.service.predictSubject.subscribe((pred) => this.updateChart(pred));
 
-    this.service.predictSubject.subscribe(
-      (probability) => (this.probability = probability)
-    );
-
-    this.service.predictSubject
+    this.store
+      .select(selectSelectedIndexLabel)
       .pipe(
-        switchMap((value) =>
-          this.service
-            .getSkinsCard()
-            .pipe(
-              map((card) =>
-                card.find(
-                  (c) =>
-                    c.label === this.labels[value.indexOf(Math.max(...value))]
-                )
-              )
-            )
+        filter((result) => result >= 0 || result !== null),
+        switchMap((index) =>
+          this.service.getSkinsCard().pipe(
+            filter((card) => card !== undefined),
+            map((card) => card.find((c) => c.label === this.labels[index]))
+          )
         )
       )
-      .subscribe((card) => (this.card = card));
+      .subscribe((card) => {
+        console.log(card);
+
+        this.card = card;
+      });
   }
   public imageHelper(card: SkinCard): string {
     if (card) return `./assets/skin-images/${card.label}.jpg`;
     return `./assets/placeholder.jpg`;
   }
 
-  public data: any;
-  public chart: any;
-
   ngAfterViewInit(): void {
-    const myColors = ['red', 'green', 'blue'];
     this.chart = new Chart('canvas', {
       type: 'bar',
       data: {
@@ -135,7 +140,8 @@ export class ResultViewComponent implements OnInit {
           );
           const firstPoint = activePoints[0];
           const label = this.chart.data.labels[firstPoint._index];
-          // this.service.predictSubject.next(TYPE_OF_SKINS.indexOf(label));
+          const index = TYPE_OF_SKINS.indexOf(label);
+          this.store.dispatch(setLabel({ index }));
         },
         legend: {
           display: false,
@@ -153,6 +159,11 @@ export class ResultViewComponent implements OnInit {
           ],
         },
       },
+    });
+    this.store.select(selectPredictionResult).subscribe((pred) => {
+      this.selectedChart.setValue(SelectedChart.prediction);
+      this.updateChart(pred);
+      this.probability = pred;
     });
   }
 

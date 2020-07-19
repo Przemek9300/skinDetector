@@ -20,6 +20,9 @@ import { ModelUploadComponent } from './model-upload/model-upload.component';
 import { environment } from 'src/environments/environment';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { appReducer } from './store/reducer';
+import { PercentPipe } from '@angular/common';
 @NgModule({
   declarations: [
     AppComponent,
@@ -43,9 +46,13 @@ import { StoreModule } from '@ngrx/store';
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
     NgxSpinnerModule,
-    StoreModule.forRoot({}, {}),
+    StoreModule.forRoot({ appState: appReducer }, {}),
+    StoreDevtoolsModule.instrument({
+      maxAge: 25, // Retains last 25 states
+      logOnly: environment.production, // Restrict extension to log-only mode
+    }),
   ],
-  providers: [],
+  providers: [PercentPipe],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
