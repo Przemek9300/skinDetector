@@ -145,7 +145,8 @@ export class ResultViewComponent implements OnInit {
           );
           const firstPoint = activePoints[0];
           const label = this.chart.data.labels[firstPoint._index];
-          const index = TYPE_OF_SKINS.indexOf(label);
+          const index = TYPE_OF_SKINS.indexOf(label) ;
+          if(index >= 0)
           this.store.dispatch(setLabel({ index }));
         },
         legend: {
