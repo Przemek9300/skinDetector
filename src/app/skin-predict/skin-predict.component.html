@@ -25,28 +25,21 @@
           </mat-select>
         </mat-form-field>
       </div>
-      <div class="image_box">
-        <label mat-button for="file">
-          <img
-            *ngIf="image?.result === null"
-            class="image_uploaded"
-            src="./assets/placeholder.jpg"
-          />
-          <img
-            *ngIf="image?.result"
-            class="image_uploaded"
-            #userImage
-            [src]="image?.result"
-          />
 
-          <input
-            id="file"
-            hidden
-            class="box__file"
-            type="file"
-            (change)="onFileChanged($event)"
-          />
-        </label>
+      <div class="image_box">
+        <mat-button-toggle-group class="panel" #group="matButtonToggleGroup">
+          <mat-button-toggle value="left" aria-label="Text align left">
+            <mat-icon>add_a_photo
+            </mat-icon>
+          </mat-button-toggle>
+          <mat-button-toggle value="center" aria-label="Text align center">
+            <mat-icon>insert_photo</mat-icon>
+          </mat-button-toggle>
+
+        </mat-button-toggle-group>
+        <ng-container
+        *ngIf="true; then gallery; else camera">
+      </ng-container>
       </div>
     </mat-card-content>
     <mat-divider></mat-divider>
@@ -66,3 +59,33 @@
     <app-result-view></app-result-view>
   </mat-card>
 </div>
+
+
+
+<ng-template #camera>
+
+</ng-template>
+
+<ng-template #gallery>
+  <label mat-button for="file">
+    <img
+      *ngIf="image?.result === null"
+      class="image_uploaded"
+      src="./assets/placeholder.jpg"
+    />
+    <img
+      *ngIf="image?.result"
+      class="image_uploaded"
+      #userImage
+      [src]="image?.result"
+    />
+
+    <input
+      id="file"
+      hidden
+      class="box__file"
+      type="file"
+      (change)="onFileChanged($event)"
+    />
+  </label>
+</ng-template>

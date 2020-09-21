@@ -10,10 +10,16 @@
     flex-wrap: wrap;
   }
   .image_box {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     border-radius: 10px;
     cursor: pointer;
     outline: 2px dotted grey;
     vertical-align: middle;
+    .panel{
+      margin: 1em auto;
+    }
   }
   .image_box:hover {
     cursor: pointer;
