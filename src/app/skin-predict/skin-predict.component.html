@@ -27,19 +27,22 @@
       </div>
 
       <div class="image_box">
-        <mat-button-toggle-group class="panel" #group="matButtonToggleGroup">
-          <mat-button-toggle value="left" aria-label="Text align left">
-            <mat-icon>add_a_photo
-            </mat-icon>
-          </mat-button-toggle>
-          <mat-button-toggle value="center" aria-label="Text align center">
+        <mat-button-toggle-group class="panel">
+          <mat-button-toggle
+            [checked]="isCameraMode"
+            (change)="setCameraMode(false)"
+          >
             <mat-icon>insert_photo</mat-icon>
           </mat-button-toggle>
-
+          <mat-button-toggle
+            [checked]="isCameraMode"
+            (change)="setCameraMode(true)"
+          >
+            <mat-icon>add_a_photo </mat-icon>
+          </mat-button-toggle>
         </mat-button-toggle-group>
-        <ng-container
-        *ngIf="true; then gallery; else camera">
-      </ng-container>
+        <ng-container *ngIf="isCameraMode; then camera; else gallery">
+        </ng-container>
       </div>
     </mat-card-content>
     <mat-divider></mat-divider>
@@ -60,10 +63,21 @@
   </mat-card>
 </div>
 
-
-
 <ng-template #camera>
-
+  <div class="camera-container">
+    <webcam *ngIf="webcamImage===null" [trigger]="capture$" (imageCapture)="handleImage($event)" [width]="450" [height]="360" class="webcam"></webcam>
+    <img
+    *ngIf="webcamImage"
+    class="image_uploaded"
+    #userImage
+    [src]="webcamImage.imageAsDataUrl"
+  />
+  </div>
+  <div class="camera_panel">
+  <button mat-fab color="primary" (click)="capture()">
+    <span class="material-icons"> {{webcamImage===null? 'adjust':'camera'}} </span>
+  </button>
+</div>
 </ng-template>
 
 <ng-template #gallery>

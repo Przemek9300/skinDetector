@@ -1,28 +1,30 @@
-import { BrowserModule } from '@angular/platform-browser';
+import { PercentPipe } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { BrowserModule } from '@angular/platform-browser';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { RouterModule } from '@angular/router';
+import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AngularFireModule } from 'angularfire2';
+import { AngularFireStorageModule } from 'angularfire2/storage';
+import { NgxSpinnerModule } from 'ngx-spinner';
+import { WebcamModule } from 'ngx-webcam';
+import { environment } from 'src/environments/environment';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ChartComponent } from './charts-container/chart/chart.component';
+import { ChartsComponent } from './charts-container/charts.component';
 import { LayoutComponent } from './layout/layout.component';
 import { MaterialModule } from './material/material.module';
-import { RouterModule } from '@angular/router';
-import { SkinPredictComponent } from './skin-predict/skin-predict.component';
-import { ResultViewComponent } from './skin-predict/result-view/result-view.component';
-import { ChartsComponent } from './charts-container/charts.component';
-import { SkinInformationComponent } from './skin-information/skin-information.component';
-import { HttpClientModule } from '@angular/common/http';
-import { ChartComponent } from './charts-container/chart/chart.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AngularFireModule } from 'angularfire2';
-import { AngularFireStorageModule } from 'angularfire2/storage';
 import { ModelUploadComponent } from './model-upload/model-upload.component';
-import { environment } from 'src/environments/environment';
-import { NgxSpinnerModule } from 'ngx-spinner';
-import { StoreModule } from '@ngrx/store';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { SkinInformationComponent } from './skin-information/skin-information.component';
+import { ResultViewComponent } from './skin-predict/result-view/result-view.component';
+import { SkinPredictComponent } from './skin-predict/skin-predict.component';
 import { appReducer } from './store/reducer';
-import { PercentPipe } from '@angular/common';
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -45,6 +47,7 @@ import { PercentPipe } from '@angular/common';
     ReactiveFormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFireStorageModule,
+    WebcamModule,
     NgxSpinnerModule,
     StoreModule.forRoot({ appState: appReducer }, {}),
     StoreDevtoolsModule.instrument({
