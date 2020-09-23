@@ -65,7 +65,7 @@
 
 <ng-template #camera>
   <div class="camera-container">
-    <webcam *ngIf="webcamImage===null" [trigger]="capture$" (imageCapture)="handleImage($event)" [width]="450" [height]="360" class="webcam"></webcam>
+    <webcam *ngIf="webcamImage===null" [trigger]="capture$" (imageCapture)="handleImage($event)" [width]="360" [height]="360" class="webcam"></webcam>
     <img
     *ngIf="webcamImage"
     class="image_uploaded"
