@@ -17,3 +17,8 @@
 .main-container {
   min-height: 80%;
 }
+@media (max-width: 600px) {
+  .menu-button {
+    display: none;
+  }
+}
